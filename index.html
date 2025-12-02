@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merry Christmas Xiao Zhang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Serif+SC:wght@400;700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              handwriting: ['"Dancing Script"', 'cursive'],
+              serif: ['"Noto Serif SC"', 'serif'],
+              festive: ['"Mountains of Christmas"', 'cursive'],
+            },
+            colors: {
+              christmas: {
+                red: '#C41E3A',
+                green: '#165B33',
+                gold: '#D4AF37',
+                cream: '#F8F2E4',
+                dark: '#0F0F0F'
+              }
+            },
+            backgroundImage: {
+              'paper-texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')"
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #0F0F0F;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
