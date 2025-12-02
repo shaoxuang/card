@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, RefreshCw, Heart, Music, MailOpen } from 'lucide-react';
+import { Sparkles, RefreshCw, Heart, Star, Gift } from 'lucide-react';
 import { generateChristmasWish } from '../services/geminiService';
 
 const DEFAULT_MESSAGE = `亲爱的小张：
 
-愿圣诞的钟声带给你一份宁静与喜悦。在这美好的节日里，希望温暖的炉火、闪烁的彩灯和朋友的祝福长伴你左右。
+在这个雪花飞舞的季节，愿温暖的炉火映照你开心的笑脸。
+希望新的一年里，所有的美好都如期而至。
 
 圣诞快乐！`;
 
@@ -31,28 +32,44 @@ const ChristmasCard: React.FC = () => {
             initial={{ scale: 0.8, opacity: 0, y: 50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 1.5, opacity: 0, rotateX: -90 }}
-            whileHover={{ scale: 1.05, rotate: 2 }}
+            whileHover={{ scale: 1.05, rotate: 1 }}
             transition={{ type: "spring", stiffness: 100 }}
             onClick={() => setIsOpen(true)}
             className="cursor-pointer relative group"
           >
-            {/* Envelope Back */}
-            <div className="w-[340px] h-[240px] md:w-[500px] md:h-[350px] bg-christmas-red rounded-lg shadow-2xl relative flex items-center justify-center border-4 border-christmas-gold overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            {/* Envelope Container */}
+            <div className="w-[340px] h-[240px] md:w-[500px] md:h-[350px] bg-gradient-to-br from-red-700 to-red-900 rounded-lg shadow-2xl relative flex items-center justify-center border-2 border-red-900 overflow-hidden transform transition-transform duration-300">
                 
-                {/* Stamp */}
-                <div className="absolute top-4 right-4 w-16 h-20 bg-christmas-cream border-2 border-dashed border-christmas-gold flex items-center justify-center transform rotate-3 shadow-md">
-                   <Sparkles className="text-christmas-red w-8 h-8" />
+                {/* Envelope Flap Effect (Visual) */}
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-red-800 opacity-20 transform origin-top scale-y-100 z-0 clip-path-triangle"></div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+
+                {/* Stamp Area */}
+                <div className="absolute top-6 right-6 w-20 h-24 bg-christmas-cream shadow-md transform rotate-6 border-4 border-dashed border-christmas-gold/50 flex flex-col items-center justify-center p-1">
+                   <div className="w-full h-full border border-gray-300 bg-red-50 flex items-center justify-center">
+                     <Star className="text-christmas-gold fill-current w-8 h-8" />
+                   </div>
+                </div>
+                
+                {/* Postmark */}
+                <div className="absolute top-6 right-20 w-24 h-24 border-2 border-gray-400 rounded-full opacity-40 flex items-center justify-center transform -rotate-12 pointer-events-none">
+                    <span className="text-xs font-serif uppercase text-gray-800 text-center leading-tight">North Pole<br/>Express<br/>12.25</span>
                 </div>
 
-                <div className="text-center z-10">
-                    <h2 className="font-handwriting text-4xl md:text-6xl text-christmas-gold drop-shadow-lg mb-2">To: 小张</h2>
-                    <p className="font-serif text-christmas-cream text-sm opacity-80">(点击开启 Click to Open)</p>
+                <div className="text-center z-10 mt-10">
+                    <h2 className="font-handwriting text-5xl md:text-7xl text-christmas-gold drop-shadow-lg mb-3 tracking-wide">For: 小张</h2>
+                    <motion.div 
+                      animate={{ y: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                      className="font-serif text-white/80 text-sm tracking-widest uppercase"
+                    >
+                      Click to Open
+                    </motion.div>
                 </div>
                 
                 {/* Wax Seal */}
-                <div className="absolute bottom-1/4 w-16 h-16 bg-christmas-gold rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-600">
-                    <Heart className="text-christmas-red fill-current w-8 h-8" />
+                <div className="absolute bottom-10 md:bottom-16 w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center shadow-xl border-4 border-yellow-700/50 group-hover:scale-110 transition-transform">
+                    <Heart className="text-red-900 fill-current w-8 h-8 md:w-10 md:h-10 filter drop-shadow-sm" />
                 </div>
             </div>
           </motion.div>
@@ -61,79 +78,75 @@ const ChristmasCard: React.FC = () => {
             key="card"
             initial={{ rotateY: 90, opacity: 0 }}
             animate={{ rotateY: 0, opacity: 1 }}
-            transition={{ duration: 0.8, type: "spring" }}
-            className="bg-christmas-cream w-full max-w-lg rounded-xl shadow-2xl overflow-hidden relative border-8 border-double border-christmas-red"
+            transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+            className="bg-[#fffdf5] w-full max-w-lg rounded-xl shadow-2xl overflow-hidden relative border-[12px] border-christmas-red"
           >
-            {/* Inner Texture */}
-            <div className="absolute inset-0 opacity-40 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"></div>
+            {/* Inner Border Design */}
+            <div className="absolute inset-2 border-2 border-christmas-gold border-dashed rounded-lg opacity-50 pointer-events-none z-10"></div>
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/snow.png')] opacity-10 pointer-events-none"></div>
 
-            {/* Decorations */}
-            <div className="absolute top-0 left-0 w-full h-16 bg-christmas-green opacity-90 flex items-center justify-center overflow-hidden">
-                 <div className="flex space-x-8">
-                    {[...Array(10)].map((_, i) => (
-                        <div key={i} className="w-4 h-4 rounded-full bg-christmas-gold animate-pulse" style={{ animationDelay: `${i * 0.1}s`}}></div>
-                    ))}
-                 </div>
+            {/* Header Decoration */}
+            <div className="relative h-40 bg-christmas-green flex items-center justify-center overflow-hidden">
+                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-20"></div>
+                 <motion.img 
+                    initial={{ y: -50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    src="https://images.unsplash.com/photo-1544275825-7096e3444053?q=80&w=400&auto=format&fit=crop" 
+                    alt="Christmas Wreath" 
+                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover z-20 transform translate-y-8"
+                 />
             </div>
 
-            <div className="p-8 pt-20 pb-12 text-center flex flex-col items-center min-h-[500px]">
+            <div className="px-8 pt-16 pb-10 text-center flex flex-col items-center">
                 
-                <motion.div 
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.5, type: 'spring' }}
-                    className="mb-6"
-                >
-                    <img 
-                        src="https://picsum.photos/200/200?random=1" 
-                        alt="Christmas Decoration" 
-                        className="w-32 h-32 rounded-full border-4 border-christmas-gold shadow-lg object-cover mx-auto"
-                    />
-                </motion.div>
-
-                <h1 className="font-festive text-4xl md:text-5xl text-christmas-red mb-6 drop-shadow-sm">
-                    Merry Christmas!
+                <h1 className="font-festive text-5xl text-christmas-red mb-6 drop-shadow-sm mt-4">
+                    Merry Christmas
                 </h1>
 
-                <div className="relative w-full">
+                <div className="relative w-full min-h-[120px] mb-8">
                     {isGenerating ? (
-                         <div className="h-48 flex items-center justify-center space-x-2 text-christmas-green">
-                             <RefreshCw className="w-6 h-6 animate-spin" />
-                             <span className="font-serif italic">正在编织祝福... (Generating...)</span>
+                         <div className="absolute inset-0 flex flex-col items-center justify-center text-christmas-gold space-y-3">
+                             <RefreshCw className="w-8 h-8 animate-spin" />
+                             <span className="font-serif italic text-sm text-gray-500">正在为小张撰写祝福...</span>
                          </div>
                     ) : (
-                        <motion.p 
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="font-serif text-lg md:text-xl text-gray-800 leading-relaxed whitespace-pre-line mb-8 p-4 bg-white/50 rounded-lg shadow-inner"
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="bg-red-50/50 p-6 rounded-lg border border-red-100"
                         >
-                            {message}
-                        </motion.p>
+                            <p className="font-serif text-lg text-gray-800 leading-relaxed whitespace-pre-line">
+                                {message}
+                            </p>
+                            <div className="text-right mt-4 font-handwriting text-xl text-christmas-red">
+                                — Your Friend
+                            </div>
+                        </motion.div>
                     )}
                 </div>
 
-                <div className="mt-auto flex flex-col items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
                      <button 
                         onClick={handleGenerateNewWish}
                         disabled={isGenerating}
-                        className="group flex items-center space-x-2 px-6 py-2 bg-christmas-red text-white rounded-full hover:bg-red-700 transition-colors shadow-md disabled:opacity-50"
+                        className="group flex items-center space-x-2 px-6 py-2.5 bg-christmas-red hover:bg-red-800 text-white rounded-full transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                      >
-                        <RefreshCw className={`w-4 h-4 ${isGenerating ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
-                        <span className="font-sans text-sm font-bold">换一个祝福 (New Wish)</span>
+                        <Gift className="w-4 h-4" />
+                        <span className="font-sans text-sm font-semibold tracking-wide">生成新祝福</span>
                      </button>
                      
                      <button 
                         onClick={() => setIsOpen(false)}
-                        className="text-christmas-green underline hover:text-green-800 text-sm font-serif"
+                        className="text-gray-500 hover:text-christmas-green underline decoration-1 underline-offset-4 text-sm font-serif transition-colors"
                      >
-                        合上卡片 (Close)
+                        合上卡片
                      </button>
                 </div>
             </div>
             
-            {/* Decorative Corners */}
-            <div className="absolute bottom-2 left-2 text-christmas-gold opacity-50"><Sparkles size={24}/></div>
-            <div className="absolute bottom-2 right-2 text-christmas-gold opacity-50"><Sparkles size={24}/></div>
+            {/* Footer Pattern */}
+            <div className="h-3 bg-gradient-to-r from-christmas-green via-christmas-red to-christmas-green"></div>
 
           </motion.div>
         )}
